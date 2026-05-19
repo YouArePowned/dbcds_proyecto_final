@@ -1,0 +1,4 @@
+es/uv/garcosda/sensores/api2/controller/SensorController.class
+es/uv/garcosda/sensores/api2/Api2SensoresVitalesApplication.class
+es/uv/garcosda/sensores/api2/domain/LecturaVital.class
+es/uv/garcosda/sensores/api2/service/LecturaService.class

@@ -1,0 +1,16 @@
+/Users/victorsanz/aplicaciones/master-twcam/DBCDS/proyectoFinal/dbcds_proyecto_final/api1-triaje-camas/src/main/java/es/uv/garcosda/triaje/api1/consumers/PacienteEventProducer.java
+/Users/victorsanz/aplicaciones/master-twcam/DBCDS/proyectoFinal/dbcds_proyecto_final/api1-triaje-camas/src/main/java/es/uv/garcosda/triaje/api1/config/R2dbcConfig.java
+/Users/victorsanz/aplicaciones/master-twcam/DBCDS/proyectoFinal/dbcds_proyecto_final/api1-triaje-camas/src/main/java/es/uv/garcosda/triaje/api1/config/DataLoader.java
+/Users/victorsanz/aplicaciones/master-twcam/DBCDS/proyectoFinal/dbcds_proyecto_final/api1-triaje-camas/src/main/java/es/uv/garcosda/triaje/api1/domain/Estado.java
+/Users/victorsanz/aplicaciones/master-twcam/DBCDS/proyectoFinal/dbcds_proyecto_final/api1-triaje-camas/src/main/java/es/uv/garcosda/triaje/api1/domain/Cama.java
+/Users/victorsanz/aplicaciones/master-twcam/DBCDS/proyectoFinal/dbcds_proyecto_final/api1-triaje-camas/src/main/java/es/uv/garcosda/triaje/api1/controller/TriajeController.java
+/Users/victorsanz/aplicaciones/master-twcam/DBCDS/proyectoFinal/dbcds_proyecto_final/api1-triaje-camas/src/main/java/es/uv/garcosda/triaje/api1/domain/Planta.java
+/Users/victorsanz/aplicaciones/master-twcam/DBCDS/proyectoFinal/dbcds_proyecto_final/api1-triaje-camas/src/main/java/es/uv/garcosda/triaje/api1/domain/Grado.java
+/Users/victorsanz/aplicaciones/master-twcam/DBCDS/proyectoFinal/dbcds_proyecto_final/api1-triaje-camas/src/main/java/es/uv/garcosda/triaje/api1/domain/Paciente.java
+/Users/victorsanz/aplicaciones/master-twcam/DBCDS/proyectoFinal/dbcds_proyecto_final/api1-triaje-camas/src/main/java/es/uv/garcosda/triaje/api1/repository/CamaRepository.java
+/Users/victorsanz/aplicaciones/master-twcam/DBCDS/proyectoFinal/dbcds_proyecto_final/api1-triaje-camas/src/main/java/es/uv/garcosda/triaje/api1/config/RabbitMQConfig.java
+/Users/victorsanz/aplicaciones/master-twcam/DBCDS/proyectoFinal/dbcds_proyecto_final/api1-triaje-camas/src/main/java/es/uv/garcosda/triaje/api1/consumers/AtencionConsumer.java
+/Users/victorsanz/aplicaciones/master-twcam/DBCDS/proyectoFinal/dbcds_proyecto_final/api1-triaje-camas/src/main/java/es/uv/garcosda/triaje/api1/repository/PacienteRepository.java
+/Users/victorsanz/aplicaciones/master-twcam/DBCDS/proyectoFinal/dbcds_proyecto_final/api1-triaje-camas/src/main/java/es/uv/garcosda/triaje/api1/repository/PlantaRepository.java
+/Users/victorsanz/aplicaciones/master-twcam/DBCDS/proyectoFinal/dbcds_proyecto_final/api1-triaje-camas/src/main/java/es/uv/garcosda/triaje/api1/Api1TriajeCamasApplication.java
+/Users/victorsanz/aplicaciones/master-twcam/DBCDS/proyectoFinal/dbcds_proyecto_final/api1-triaje-camas/src/main/java/es/uv/garcosda/triaje/api1/config/SpringDocConfig.java

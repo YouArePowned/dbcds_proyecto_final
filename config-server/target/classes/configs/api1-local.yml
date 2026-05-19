@@ -1,0 +1,41 @@
+server:
+  port: 8081
+
+spring:
+  main:
+    web-application-type: reactive
+  application:
+    name: api1-triaje-camas
+  r2dbc:
+    url: r2dbc:h2:mem:///triajedb;DB_CLOSE_DELAY=-1
+    username: sa
+    password:
+  h2:
+    console:
+      enabled: true
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+rabbitmq:
+  exchange:
+    name: urgencias
+  queue:
+    name:
+      leve: q.pacientes.leve
+      grave: q.pacientes.grave
+      critico: q.pacientes.critico
+      supervisor: q.pacientes.supervisor
+  routing:
+    key:
+      leve: pacientes.leve
+      grave: pacientes.grave
+      critico: pacientes.critico
+      supervisor: pacientes.*

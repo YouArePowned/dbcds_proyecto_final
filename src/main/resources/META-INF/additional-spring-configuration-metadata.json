@@ -1,0 +1,37 @@
+{"properties": [
+  {
+    "name": "rabbitmq.exchange.name",
+    "type": "java.lang.String",
+    "description": "A description for 'rabbitmq.exchange.name'"
+  },
+  {
+    "name": "rabbitmq.queue.name.user",
+    "type": "java.lang.String",
+    "description": "A description for 'rabbitmq.queue.name.user'"
+  },
+  {
+    "name": "rabbitmq.queue.name.recover",
+    "type": "java.lang.String",
+    "description": "A description for 'rabbitmq.queue.name.recover'"
+  },
+  {
+    "name": "rabbitmq.routing.key.user",
+    "type": "java.lang.String",
+    "description": "A description for 'rabbitmq.routing.key.user'"
+  },
+  {
+    "name": "rabbitmq.routing.key.recover",
+    "type": "java.lang.String",
+    "description": "A description for 'rabbitmq.routing.key.recover'"
+  },
+  {
+    "name": "rabbitmq.queue.name.system",
+    "type": "java.lang.String",
+    "description": "A description for 'rabbitmq.queue.name.system'"
+  },
+  {
+    "name": "rabbitmq.routing.key.system",
+    "type": "java.lang.String",
+    "description": "A description for 'rabbitmq.routing.key.system'"
+  }
+]}

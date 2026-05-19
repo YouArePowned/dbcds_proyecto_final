@@ -1,0 +1,72 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: gateway
+  webflux:
+    static-path-pattern: /static/**
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+        - id: api1-triaje
+          uri: lb://api1-triaje-camas
+          predicates:
+            - Path=/api/v1/triaje/**
+        - id: api2-sensores
+          uri: lb://api2-sensores-vitales
+          predicates:
+            - Path=/api/v1/sensores/**
+        - id: api3-supervisor
+          uri: lb://api3-supervisor-medico
+          predicates:
+            - Path=/api/v1/supervisor/**
+        - id: api1-docs
+          uri: lb://api1-triaje-camas
+          predicates:
+            - Path=/service-docs/api1
+          filters:
+            - SetPath=/v3/api-docs
+        - id: api2-docs
+          uri: lb://api2-sensores-vitales
+          predicates:
+            - Path=/service-docs/api2
+          filters:
+            - SetPath=/v3/api-docs
+        - id: api3-docs
+          uri: lb://api3-supervisor-medico
+          predicates:
+            - Path=/service-docs/api3
+          filters:
+            - SetPath=/v3/api-docs
+
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui.html
+    urls:
+      - name: API 1 - Triaje y Camas
+        url: /service-docs/api1
+      - name: API 2 - Sensores Vitales
+        url: /service-docs/api2
+      - name: API 3 - Supervisor Medico
+        url: /service-docs/api3
+      - name: Gateway Routes
+        url: /v3/api-docs/all
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+jwt:
+  secret: clave-secreta-muy-larga-para-el-proyecto-final-de-triaje-de-urgencias-2024
+  admin:
+    username: admin
+    password: admin
