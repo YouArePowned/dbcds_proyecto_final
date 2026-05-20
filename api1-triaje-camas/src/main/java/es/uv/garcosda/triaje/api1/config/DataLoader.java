@@ -33,7 +33,7 @@ public class DataLoader {
 
             Cama c1 = new Cama(null, "C-URG-01", 1L, false, 39.4699, -0.3763);
             Cama c2 = new Cama(null, "C-URG-02", 1L, true, 39.4700, -0.3764);
-            Cama c3 = new Cama(null, "C-REA-01", 2L, false, 39.4705, -0.3770);
+            Cama c3 = new Cama(null, "C-REA-01", 2L, true, 39.4705, -0.3770);
             Cama c4 = new Cama(null, "C-OBS-01", 3L, false, 39.4685, -0.3755);
 
             template.insert(Cama.class).using(c1).block();

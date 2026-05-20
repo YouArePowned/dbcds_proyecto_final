@@ -17,9 +17,11 @@ public class AtencionConsumer {
     private final Random random = new Random();
 
     private final PacienteRepository pacienteRepository;
+    private final es.uv.garcosda.triaje.api1.repository.CamaRepository camaRepository;
 
-    public AtencionConsumer(PacienteRepository pacienteRepository) {
+    public AtencionConsumer(PacienteRepository pacienteRepository, es.uv.garcosda.triaje.api1.repository.CamaRepository camaRepository) {
         this.pacienteRepository = pacienteRepository;
+        this.camaRepository = camaRepository;
     }
 
     @RabbitListener(queues = "${rabbitmq.queue.name.leve}")
@@ -42,10 +44,11 @@ public class AtencionConsumer {
 
     private void atenderPaciente(Paciente paciente, String tipo, int minMs, int maxMs) {
         pacienteRepository.findById(paciente.getDni())
-                .doOnNext(p -> {
+                .flatMap(p -> {
                     p.setEstado(Estado.CONSULTA);
-                    pacienteRepository.save(p).subscribe();
-                    logger.info("[ATENCION-{}] Paciente {} en CONSULTA", tipo, paciente.getDni());
+                    return pacienteRepository.save(p).doOnSuccess(saved ->
+                        logger.info("[ATENCION-{}] Paciente {} en CONSULTA", tipo, paciente.getDni())
+                    );
                 })
                 .subscribe();
 
@@ -61,10 +64,15 @@ public class AtencionConsumer {
         }
 
         pacienteRepository.findById(paciente.getDni())
-                .doOnNext(p -> {
+                .flatMap(p -> {
                     p.setEstado(Estado.ALTA);
-                    pacienteRepository.save(p).subscribe();
-                    logger.info("[ATENCION-{}] Paciente {} dado de ALTA", tipo, paciente.getDni());
+                    reactor.core.publisher.Mono<es.uv.garcosda.triaje.api1.domain.Cama> freeBed = (p.getCamaId() != null)
+                        ? camaRepository.findById(p.getCamaId()).flatMap(c -> { c.setOcupada(false); return camaRepository.save(c); })
+                        : reactor.core.publisher.Mono.empty();
+                    
+                    return freeBed.then(pacienteRepository.save(p)).doOnSuccess(saved -> 
+                        logger.info("[ATENCION-{}] Paciente {} dado de ALTA y cama liberada", tipo, p.getDni())
+                    );
                 })
                 .subscribe();
     }

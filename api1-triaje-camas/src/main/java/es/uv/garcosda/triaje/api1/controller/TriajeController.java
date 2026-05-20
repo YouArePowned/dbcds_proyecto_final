@@ -162,9 +162,4 @@ public class TriajeController {
                 .map(ResponseEntity::ok)
                 .defaultIfEmpty(ResponseEntity.notFound().build());
     }
-
-    @DeleteMapping("/registros")
-    public Mono<ResponseEntity<Void>> deleteRegistros(@RequestParam String email) {
-        return Mono.just(ResponseEntity.noContent().<Void>build());
-    }
 }
