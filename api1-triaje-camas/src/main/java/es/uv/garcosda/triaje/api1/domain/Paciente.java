@@ -1,3 +1,9 @@
+/**
+ * Entidad reactiva que representa un paciente en el sistema de triaje.
+ * Mapeada a la tabla "pacientes" en H2 vía R2DBC.
+ *
+ * Autores: Victor Sanz, Carlos Marques, Sara Cardenas
+ */
 package es.uv.garcosda.triaje.api1.domain;
 
 import org.springframework.data.annotation.Id;

@@ -1,7 +1,0 @@
-spring:
-  application:
-    name: api1-triaje-camas
-  config:
-    import: optional:configserver:http://localhost:8888
-  profiles:
-    active: local

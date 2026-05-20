@@ -1,3 +1,7 @@
+# Docker Compose para RabbitMQ con plugin de gestión web.
+# Expone el broker AMQP (5672) y la consola de administración (15672).
+# Autores: Victor Sanz, Carlos Marques, Sara Cardenas
+
 services:
   rabbitmq:
     image: rabbitmq:3-management

@@ -1,6 +1,0 @@
-es/uv/garcosda/supervisor/api3/service/SupervisorService.class
-es/uv/garcosda/supervisor/api3/consumers/SupervisorConsumer.class
-es/uv/garcosda/supervisor/api3/controller/SupervisorController.class
-es/uv/garcosda/supervisor/api3/config/RabbitMQConfig.class
-es/uv/garcosda/supervisor/api3/config/WebClientConfig.class
-es/uv/garcosda/supervisor/api3/Api3SupervisorMedicoApplication.class

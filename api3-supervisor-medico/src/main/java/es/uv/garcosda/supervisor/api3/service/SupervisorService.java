@@ -1,3 +1,10 @@
+/**
+ * Servicio de agregación del Supervisor Médico.
+ * Consulta API1 (triaje/camas) y API2 (lecturas vitales) mediante WebClient reactivo
+ * para construir vistas unificadas del estado hospitalario.
+ *
+ * Autores: Victor Sanz, Carlos Marques, Sara Cardenas
+ */
 package es.uv.garcosda.supervisor.api3.service;
 
 import org.slf4j.Logger;
@@ -22,6 +29,7 @@ public class SupervisorService {
 
     @SuppressWarnings("unchecked")
     public Mono<Map<String, Object>> obtenerEstadoCompleto(String dni) {
+        // Consulta reactiva paralela a API1 (paciente) y API2 (última lectura vital)
         Mono<Map> pacienteMono = webClient.get()
                 .uri("http://api1-triaje-camas/api/v1/triaje/pacientes/" + dni)
                 .retrieve()
@@ -49,6 +57,7 @@ public class SupervisorService {
 
     @SuppressWarnings("unchecked")
     public Mono<Map<String, Object>> obtenerResumen() {
+        // Agrega listas de pacientes y camas de API1 para calcular métricas del dashboard
         Mono<List> pacientesMono = webClient.get()
                 .uri("http://api1-triaje-camas/api/v1/triaje/pacientes")
                 .retrieve()

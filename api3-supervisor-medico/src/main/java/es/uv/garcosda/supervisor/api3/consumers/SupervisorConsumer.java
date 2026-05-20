@@ -1,3 +1,10 @@
+/**
+ * Consumidor RabbitMQ del Supervisor Médico.
+ * Escucha la cola del supervisor (wildcard sobre todas las gravedades) y registra
+ * en logs la llegada de nuevos pacientes al sistema de triaje.
+ *
+ * Autores: Victor Sanz, Carlos Marques, Sara Cardenas
+ */
 package es.uv.garcosda.supervisor.api3.consumers;
 
 import org.slf4j.Logger;

@@ -1,3 +1,12 @@
+/**
+ * Carga datos iniciales de demo en H2 in-memory al arrancar API1.
+ * Limpia tablas previas, inserta plantas, camas y pacientes de prueba.
+ * Reinicia el autoincrement de camas a 100 para evitar DuplicateKeyException.
+ * Los eventos RabbitMQ de los pacientes demo están comentados para que inicien en ESPERA
+ * y puedan ser admitidos manualmente desde el dashboard.
+ *
+ * Autores: Victor Sanz, Carlos Marques, Sara Cardenas
+ */
 package es.uv.garcosda.triaje.api1.config;
 
 import es.uv.garcosda.triaje.api1.domain.*;

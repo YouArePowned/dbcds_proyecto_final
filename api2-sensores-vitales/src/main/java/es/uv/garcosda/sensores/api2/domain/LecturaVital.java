@@ -1,3 +1,9 @@
+/**
+ * POJO que representa una lectura de constantes vitales de un paciente.
+ * Se almacena en memoria (ConcurrentHashMap) en API2.
+ *
+ * Autores: Victor Sanz, Carlos Marques, Sara Cardenas
+ */
 package es.uv.garcosda.sensores.api2.domain;
 
 import java.time.Instant;

@@ -1,3 +1,9 @@
+/**
+ * Entidad reactiva que representa una cama hospitalaria.
+ * Mapeada a la tabla "camas" en H2 vía R2DBC. Incluye coordenadas geográficas.
+ *
+ * Autores: Victor Sanz, Carlos Marques, Sara Cardenas
+ */
 package es.uv.garcosda.triaje.api1.domain;
 
 import org.springframework.data.annotation.Id;

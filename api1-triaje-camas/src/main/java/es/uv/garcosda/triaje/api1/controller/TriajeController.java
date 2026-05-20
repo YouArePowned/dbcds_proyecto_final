@@ -1,3 +1,9 @@
+/**
+ * Controlador REST reactivo para la gestión de pacientes, camas y plantas.
+ * Expone endpoints bajo /api/v1/triaje y emite eventos a RabbitMQ al admitir pacientes.
+ *
+ * Autores: Victor Sanz, Carlos Marques, Sara Cardenas
+ */
 package es.uv.garcosda.triaje.api1.controller;
 
 import es.uv.garcosda.triaje.api1.consumers.PacienteEventProducer;
@@ -51,6 +57,7 @@ public class TriajeController {
     public Mono<ResponseEntity<Paciente>> addPaciente(@RequestBody Paciente paciente) {
         paciente.setEstado(Estado.ESPERA);
         
+        // Si se asigna cama en el alta, marca la cama como ocupada antes de insertar paciente
         Mono<Cama> occupyNewBed = (paciente.getCamaId() != null) 
             ? camaRepo.findById(paciente.getCamaId()).flatMap(c -> { c.setOcupada(true); return camaRepo.save(c); }) 
             : Mono.empty();
@@ -67,10 +74,12 @@ public class TriajeController {
                     Long oldCamaId = existing.getCamaId();
                     Long newCamaId = paciente.getCamaId();
                     
+                    // Libera la cama anterior si el paciente cambia de cama
                     Mono<Cama> freeOldBed = (oldCamaId != null && !oldCamaId.equals(newCamaId)) 
                         ? camaRepo.findById(oldCamaId).flatMap(c -> { c.setOcupada(false); return camaRepo.save(c); }) 
                         : Mono.empty();
 
+                    // Ocupa la nueva cama si es distinta de la anterior
                     Mono<Cama> occupyNewBed = (newCamaId != null && !newCamaId.equals(oldCamaId)) 
                         ? camaRepo.findById(newCamaId).flatMap(c -> { c.setOcupada(true); return camaRepo.save(c); }) 
                         : Mono.empty();
@@ -92,6 +101,7 @@ public class TriajeController {
     public Mono<ResponseEntity<Void>> deletePaciente(@PathVariable String dni) {
         return pacienteRepo.findById(dni)
                 .flatMap(paciente -> {
+                    // Al eliminar un paciente, libera automáticamente su cama asignada
                     Mono<Cama> freeBed = (paciente.getCamaId() != null)
                             ? camaRepo.findById(paciente.getCamaId()).flatMap(c -> { c.setOcupada(false); return camaRepo.save(c); })
                             : Mono.empty();
@@ -139,6 +149,7 @@ public class TriajeController {
                     Long oldCamaId = paciente.getCamaId();
                     paciente.setCamaId(camaId);
                     
+                    // Libera la cama anterior y ocupa la nueva en una secuencia reactiva
                     Mono<Cama> freeOldBed = (oldCamaId != null) 
                         ? camaRepo.findById(oldCamaId).flatMap(c -> { c.setOcupada(false); return camaRepo.save(c); }) 
                         : Mono.empty();
@@ -156,6 +167,7 @@ public class TriajeController {
         return pacienteRepo.findById(dni)
                 .flatMap(p -> {
                     p.setEstado(Estado.ESPERA);
+                    // Emite evento RabbitMQ para que el consumidor de atención lo procese según gravedad
                     return pacienteRepo.save(p)
                             .flatMap(saved -> eventProducer.emitirEventoPaciente(saved).thenReturn(saved));
                 })

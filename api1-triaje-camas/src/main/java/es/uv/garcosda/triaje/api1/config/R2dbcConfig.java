@@ -1,3 +1,9 @@
+/**
+ * Configuración de R2DBC para API1.
+ * Inicializa el esquema H2 in-memory ejecutando schema.sql al arrancar.
+ *
+ * Autores: Victor Sanz, Carlos Marques, Sara Cardenas
+ */
 package es.uv.garcosda.triaje.api1.config;
 
 import io.r2dbc.spi.ConnectionFactory;

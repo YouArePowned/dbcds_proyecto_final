@@ -1,3 +1,7 @@
+# Configuración base de API1 (Triaje y Camas).
+# Importa configuración extendida desde el Config Server en perfil local.
+# Autores: Victor Sanz, Carlos Marques, Sara Cardenas
+
 spring:
   application:
     name: api1-triaje-camas

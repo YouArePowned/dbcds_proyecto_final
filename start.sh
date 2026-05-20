@@ -1,4 +1,7 @@
 #!/bin/bash
+# Script de arranque del ecosistema completo.
+# Levanta RabbitMQ, compila con Maven e inicia los servicios en orden obligatorio.
+# Autores: Victor Sanz, Carlos Marques, Sara Cardenas
 set -e
 
 echo "[INFO] Levantando RabbitMQ..."

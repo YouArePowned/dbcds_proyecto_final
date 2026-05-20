@@ -1,3 +1,9 @@
+/**
+ * Punto de entrada del Eureka Server.
+ * Provee descubrimiento de servicios para el ecosistema de microservicios.
+ *
+ * Autores: Victor Sanz, Carlos Marques, Sara Cardenas
+ */
 package es.uv.garcosda.eureka;
 
 import org.springframework.boot.SpringApplication;

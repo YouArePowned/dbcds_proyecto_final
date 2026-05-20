@@ -1,3 +1,9 @@
+/**
+ * Controlador de autenticación del Gateway.
+ * Genera tokens JWT para usuarios administradores y dispositivos (CAMA/SENSOR).
+ *
+ * Autores: Victor Sanz, Carlos Marques, Sara Cardenas
+ */
 package es.uv.garcosda.gateway.config;
 
 import io.jsonwebtoken.Jwts;
@@ -31,6 +37,7 @@ public class AuthController {
         String user = credentials.get("user");
         String pass = credentials.get("pass");
 
+        // Autenticación simple contra credenciales configuradas; emite JWT de 15 min
         if (adminUser.equals(user) && adminPass.equals(pass)) {
             String token = generarToken(user, "ADMIN", 15);
             return ResponseEntity.ok(Map.of("token", token, "role", "ADMIN"));
@@ -43,6 +50,7 @@ public class AuthController {
         String deviceId = request.get("deviceId");
         String role = request.get("role");
 
+        // Emite tokens de larga duración (1 año en minutos) para dispositivos IoT / camas
         if (deviceId == null || role == null || (!role.equals("CAMA") && !role.equals("SENSOR"))) {
             return ResponseEntity.badRequest().body(Map.of("error", "deviceId y role (CAMA/SENSOR) requeridos"));
         }

@@ -1,3 +1,9 @@
+/**
+ * Productor de eventos RabbitMQ para el flujo de triaje.
+ * Emite mensajes al topic exchange "urgencias" con routing key según el grado del paciente.
+ *
+ * Autores: Victor Sanz, Carlos Marques, Sara Cardenas
+ */
 package es.uv.garcosda.triaje.api1.consumers;
 
 import es.uv.garcosda.triaje.api1.domain.Paciente;
@@ -18,6 +24,10 @@ public class PacienteEventProducer {
         this.rabbitTemplate = rabbitTemplate;
     }
 
+    /**
+     * Emite un evento al topic exchange "urgencias" usando como routing key
+     * el grado del paciente (pacientes.leve, pacientes.grave, pacientes.critico).
+     */
     public Mono<Void> emitirEventoPaciente(Paciente paciente) {
         return Mono.fromRunnable(() -> {
             String routingKey = "pacientes." + paciente.getGrado().name().toLowerCase();

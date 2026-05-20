@@ -1,3 +1,7 @@
+# Configuración base de API3 (Supervisor Médico).
+# Importa configuración extendida desde el Config Server en perfil local.
+# Autores: Victor Sanz, Carlos Marques, Sara Cardenas
+
 spring:
   application:
     name: api3-supervisor-medico

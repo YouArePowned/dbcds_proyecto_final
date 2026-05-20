@@ -1,3 +1,10 @@
+/**
+ * Configuración de WebClient para API3.
+ * Proporciona un builder con balanceo de carga (LoadBalanced) para comunicarse
+ * reactivamente con API1 y API2 a través de Eureka.
+ *
+ * Autores: Victor Sanz, Carlos Marques, Sara Cardenas
+ */
 package es.uv.garcosda.supervisor.api3.config;
 
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;

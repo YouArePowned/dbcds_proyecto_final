@@ -1,7 +1,0 @@
-spring:
-  application:
-    name: api3-supervisor-medico
-  config:
-    import: optional:configserver:http://localhost:8888
-  profiles:
-    active: local

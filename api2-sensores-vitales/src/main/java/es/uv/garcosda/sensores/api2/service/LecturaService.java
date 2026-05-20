@@ -1,3 +1,10 @@
+/**
+ * Servicio de gestión de lecturas vitales.
+ * Almacena datos en memoria (ConcurrentHashMap) e inicializa lecturas de demo al arrancar.
+ * No utiliza MongoDB real; el frontend hace referencia a ello por diseño académico.
+ *
+ * Autores: Victor Sanz, Carlos Marques, Sara Cardenas
+ */
 package es.uv.garcosda.sensores.api2.service;
 
 import es.uv.garcosda.sensores.api2.domain.LecturaVital;
@@ -19,6 +26,7 @@ public class LecturaService {
 
     @PostConstruct
     public void init() {
+        // Precarga lecturas demo para los DNI de pacientes existentes en API1
         String[] dnies = {"12345678A", "23456789B", "34567890C", "67890123F"};
         for (String dni : dnies) {
             List<LecturaVital> lecturas = new ArrayList<>();

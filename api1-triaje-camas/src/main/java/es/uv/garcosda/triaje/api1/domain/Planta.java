@@ -1,3 +1,9 @@
+/**
+ * Entidad reactiva que representa una planta o área del hospital.
+ * Mapeada a la tabla "plantas" en H2 vía R2DBC.
+ *
+ * Autores: Victor Sanz, Carlos Marques, Sara Cardenas
+ */
 package es.uv.garcosda.triaje.api1.domain;
 
 import org.springframework.data.annotation.Id;

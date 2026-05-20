@@ -1,3 +1,9 @@
+/**
+ * Controlador REST reactivo para la recepción y consulta de lecturas de sensores vitales.
+ * Opera sobre almacenamiento en memoria gestionado por LecturaService.
+ *
+ * Autores: Victor Sanz, Carlos Marques, Sara Cardenas
+ */
 package es.uv.garcosda.sensores.api2.controller;
 
 import es.uv.garcosda.sensores.api2.domain.LecturaVital;

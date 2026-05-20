@@ -1,3 +1,9 @@
+/**
+ * Configuración de RabbitMQ para API3 (Supervisor).
+ * Declara la cola del supervisor y su binding al topic exchange "urgencias" con wildcard.
+ *
+ * Autores: Victor Sanz, Carlos Marques, Sara Cardenas
+ */
 package es.uv.garcosda.supervisor.api3.config;
 
 import org.springframework.amqp.core.Binding;

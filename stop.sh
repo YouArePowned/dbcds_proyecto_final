@@ -1,4 +1,7 @@
 #!/bin/bash
+# Script de parada del ecosistema completo.
+# Detiene todos los procesos Java de los microservicios y el contenedor RabbitMQ.
+# Autores: Victor Sanz, Carlos Marques, Sara Cardenas
 set -e
 
 echo "[INFO] Parando servicios Java..."

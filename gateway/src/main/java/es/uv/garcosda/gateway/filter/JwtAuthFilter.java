@@ -1,3 +1,10 @@
+/**
+ * Filtro global de autenticación JWT para el API Gateway.
+ * Valida el token Bearer en todas las rutas excepto las públicas configuradas.
+ * Inyecta cabeceras X-User-Role y X-User-Sub para uso interno downstream.
+ *
+ * Autores: Victor Sanz, Carlos Marques, Sara Cardenas
+ */
 package es.uv.garcosda.gateway.filter;
 
 import io.jsonwebtoken.Claims;
@@ -33,6 +40,7 @@ public class JwtAuthFilter implements GlobalFilter, Ordered {
         ServerHttpRequest request = exchange.getRequest();
         String path = request.getURI().getPath();
 
+        // Permite el paso sin autenticación para rutas públicas (login, docs, assets)
         if (publicPaths.stream().anyMatch(path::startsWith)) {
             return chain.filter(exchange);
         }
@@ -43,6 +51,7 @@ public class JwtAuthFilter implements GlobalFilter, Ordered {
             return exchange.getResponse().setComplete();
         }
 
+        // Valida firma del JWT y extrae claims para inyectar cabeceras downstream
         String token = authHeader.substring(7);
         try {
             SecretKey key = Keys.hmacShaKeyFor(jwtSecret.getBytes(StandardCharsets.UTF_8));

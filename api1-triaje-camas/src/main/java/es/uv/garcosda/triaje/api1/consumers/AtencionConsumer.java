@@ -1,3 +1,11 @@
+/**
+ * Consumidor RabbitMQ que simula el proceso de atención médica por gravedad.
+ * Cada grado tiene una cola propia y tiempos de consulta simulados con Thread.sleep.
+ * Actualiza el estado del paciente a CONSULTA y luego a ALTA, liberando la cama.
+ * El uso de Thread.sleep es intencional para la demostración académica.
+ *
+ * Autores: Victor Sanz, Carlos Marques, Sara Cardenas
+ */
 package es.uv.garcosda.triaje.api1.consumers;
 
 import es.uv.garcosda.triaje.api1.domain.Estado;
@@ -43,6 +51,7 @@ public class AtencionConsumer {
     }
 
     private void atenderPaciente(Paciente paciente, String tipo, int minMs, int maxMs) {
+        // Cambia estado a CONSULTA de forma reactiva
         pacienteRepository.findById(paciente.getDni())
                 .flatMap(p -> {
                     p.setEstado(Estado.CONSULTA);
@@ -52,6 +61,7 @@ public class AtencionConsumer {
                 })
                 .subscribe();
 
+        // Simula tiempo de consulta médica (bloqueante intencional para la demo)
         int tiempo = minMs + random.nextInt(maxMs - minMs);
         logger.info("[ATENCION-{}] Tiempo estimado: {} ms", tipo, tiempo);
 
@@ -63,6 +73,7 @@ public class AtencionConsumer {
             return;
         }
 
+        // Finaliza consulta: estado ALTA y libera la cama ocupada
         pacienteRepository.findById(paciente.getDni())
                 .flatMap(p -> {
                     p.setEstado(Estado.ALTA);

@@ -1,3 +1,7 @@
+-- Esquema H2 in-memory para API1 (Triaje y Camas).
+-- Define tablas de plantas, camas y pacientes con claves foráneas.
+-- Autores: Victor Sanz, Carlos Marques, Sara Cardenas
+
 CREATE TABLE IF NOT EXISTS plantas (
     id BIGINT PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,

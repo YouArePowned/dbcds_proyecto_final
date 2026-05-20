@@ -1,3 +1,9 @@
+/**
+ * Controlador REST reactivo del Supervisor Médico.
+ * Agrega datos de API1 y API2 para ofrecer vistas completas del estado del hospital.
+ *
+ * Autores: Victor Sanz, Carlos Marques, Sara Cardenas
+ */
 package es.uv.garcosda.supervisor.api3.controller;
 
 import es.uv.garcosda.supervisor.api3.service.SupervisorService;

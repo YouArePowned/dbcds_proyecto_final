@@ -1,3 +1,10 @@
+/**
+ * Punto de entrada del API Gateway.
+ * Actúa como punto único de entrada, enrutando peticiones a los microservicios internos
+ * y aplicando filtros globales como validación JWT.
+ *
+ * Autores: Victor Sanz, Carlos Marques, Sara Cardenas
+ */
 package es.uv.garcosda.gateway;
 
 import org.springframework.boot.SpringApplication;

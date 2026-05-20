@@ -1,3 +1,10 @@
+/**
+ * Configuración de RabbitMQ para API1.
+ * Declara el topic exchange "urgencias", las colas de triaje por gravedad (leve, grave, critico)
+ * y la cola del supervisor, junto con sus bindings y conversor JSON.
+ *
+ * Autores: Victor Sanz, Carlos Marques, Sara Cardenas
+ */
 package es.uv.garcosda.triaje.api1.config;
 
 import org.springframework.amqp.core.Binding;

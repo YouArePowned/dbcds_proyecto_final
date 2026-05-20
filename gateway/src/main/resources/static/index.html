@@ -1,4 +1,11 @@
 <!DOCTYPE html>
+<!--
+  Dashboard SPA (Single Page Application) del Sistema de Triaje de Urgencias.
+  Frontend vanilla JS/CSS inline que consume las APIs a través del Gateway.
+  Funcionalidades: gestión de pacientes, camas, simulación de sensores, monitorización
+  de constantes vitales, búsqueda de camas cercanas y visualización de logs del supervisor.
+  Autores: Victor Sanz, Carlos Marques, Sara Cardenas
+-->
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -741,13 +748,14 @@
 
     <!-- Scripts -->
     <script>
+        // Dashboard SPA - Lógica principal de consumo de APIs y renderizado
         const API = '/api/v1';
         let token = localStorage.getItem('token');
         let refreshInterval = null;
         let globalCamas = [];
         let globalPacientes = [];
-        let globalUltimasLecturas = {}; // Cache of last read vital signs per DNI
-        let previousLecturas = {}; // For medical drift calculations
+        let globalUltimasLecturas = {}; // Cache de últimas lecturas vitales por DNI
+        let previousLecturas = {}; // Estado previo para cálculo de deriva médica en simulación
 
         if (token) {
             showApp();
@@ -827,19 +835,19 @@
 
         async function cargarDatos() {
             try {
-                // 1. Fetch Pacientes
+                // 1. Obtener listado de pacientes desde API1
                 const pacRes = await authFetch(API + '/triaje/pacientes', {headers: authHeaders()});
                 if (!pacRes.ok) throw new Error('Error obteniendo pacientes: ' + pacRes.status);
                 globalPacientes = await pacRes.json();
                 renderPacientes(globalPacientes);
 
-                // 2. Fetch Camas
+                // 2. Obtener listado de camas desde API1
                 const camRes = await authFetch(API + '/triaje/camas', {headers: authHeaders()});
                 if (!camRes.ok) throw new Error('Error obteniendo camas: ' + camRes.status);
                 globalCamas = await camRes.json();
                 renderCamas(globalCamas);
 
-                // 3. Fetch Dashboard Stats Resumen
+                // 3. Obtener resumen de estadísticas desde API3 (Supervisor)
                 try {
                     const resumenRes = await authFetch(API + '/supervisor/dashboard/resumen', {headers: authHeaders()});
                     if (resumenRes.ok) {
@@ -856,7 +864,7 @@
                     console.warn('Fallo obteniendo resumen supervisor:', e);
                 }
 
-                // 4. Fetch Vital Signs Telemetry from MongoDB
+                // 4. Obtener últimas lecturas vitales de pacientes activos desde API2
                 const activePatients = globalPacientes.filter(p => p.estado !== 'ALTA');
                 for (const p of activePatients) {
                     try {
@@ -871,7 +879,7 @@
                 }
                 renderVitales(activePatients);
 
-                // 5. Update sensor and edit selectors
+                // 5. Actualizar selectores de formularios
                 updateSensorSelect(globalPacientes);
                 setStatus(true, '🟢 Conectado - Sincronizado: ' + new Date().toLocaleTimeString());
             } catch (e) {
@@ -1076,12 +1084,12 @@
             }
         }
 
-        // Realistic clinical telemetry builder based on triage grade
+        // Genera lecturas vitales realistas con deriva médica según el grado de triaje
         function buildRealisticVitals(dni, grado) {
-            // Get previous reading if exists to apply medical drift (avoiding sudden jumps)
+            // Recupera lectura previa para aplicar deriva gradual (evita saltos bruscos)
             let prev = previousLecturas[dni];
             if (!prev) {
-                // Initialize based on patient triage severity
+                // Valores basales iniciales según severidad del paciente
                 if (grado === 'LEVE') {
                     prev = { hr: 75, spo2: 98, sys: 120, dia: 80, etco2: 37 };
                 } else if (grado === 'GRAVE') {
@@ -1091,7 +1099,7 @@
                 }
             }
 
-            // Apply slight random drift
+            // Deriva aleatoria controlada dentro de rangos clínicos seguros
             const drift = (val, step, min, max) => {
                 const change = (Math.random() - 0.5) * step;
                 return Math.max(min, Math.min(max, Math.round(val + change)));
@@ -1153,6 +1161,7 @@
             }
         }
 
+        // Control del bucle de simulación continua de sensores vitales
         let bucleInterval = null;
         function toggleBucleSensores() {
             const btn = document.getElementById('btnBucle');
@@ -1166,6 +1175,7 @@
                 ind.classList.add('hidden');
                 addLog('⏹️ Bucle de monitorización de constantes detenido.');
             } else {
+                // Envía lecturas cada 5 segundos para todos los pacientes activos
                 bucleInterval = setInterval(simularTodosLosSensores, 5000);
                 btn.className = 'danger';
                 btn.innerHTML = '■ Detener Bucle';

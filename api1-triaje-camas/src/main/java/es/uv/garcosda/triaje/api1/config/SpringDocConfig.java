@@ -1,3 +1,8 @@
+/**
+ * Configuración de SpringDoc / OpenAPI para documentar los endpoints de API1.
+ *
+ * Autores: Victor Sanz, Carlos Marques, Sara Cardenas
+ */
 package es.uv.garcosda.triaje.api1.config;
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
